@@ -37,9 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'blog',
     'comments',
-    'haystack'
+    'haystack',
+    'disqus'
 ]
 
 MIDDLEWARE = [
@@ -133,3 +135,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
+DISQUS_API_KEY = '1DcRxRFyNJzvTuawJ3KB5XBJHrVhuNSWR1qRzN3tbYVZRzUYq2tM5MqcAaqizhUf'
+DISQUS_WEBSITE_SHORTNAME = 'invitcuss'

@@ -1,4 +1,8 @@
 {% extends 'base.html' %}
+{% load disqus_tags %}
+{% disqus_show_comments %}
+{% disqus_num_replies %}
+{% disqus_recent_comments shortname num_items excerpt_length hide_avatars avatar_size %}
             {% block main %}
                 <article class="post post-{{ post.pk }}">
                   <header class="entry-header">
@@ -25,9 +29,31 @@
                   </div>
                 </article>
                 <section class="comment-area" id="comment-area">
-                    <hr>
+
+                <div id="disqus_thread"></div>
+                    <script>
+
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+                    var disqus_config = function () {
+                    this.page.url = 'http://invictuss.pythonanywhere.com/{{ post.pk }}/';  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = '/{{ post.pk }}/'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://invictuss.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+                <!--
                     <h3>发表评论</h3>
                     <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
+
                       {% csrf_token %}
                       <div class="row">
                         <div class="col-md-4">
@@ -51,26 +77,12 @@
                           {{ form.text.errors }}
                           <button type="submit" class="comment-btn">发表</button>
                         </div>
-                      </div>    <!-- row -->
+                      </div>
+
                     </form>
+                -->
 
-                    <div class="comment-list-panel">
-                        <h3>评论列表，共 <span>{{ post.comment_set.count }}</span> 条评论</h3>
-                        <ul class="comment-list list-unstyled">
-                              {% for comment in comment_list %}
-                          <li class="comment-item">
-                            <span class="nickname">{{ comment.name }}</span>
-                            <time class="submit-date">{{ comment.created_time }}</time>
-                            <div class="text">
-                              {{ comment.text }}
-                            </div>
-                          </li>
-                          {% empty %}
-                          暂无评论
-                          {% endfor %}
-                        </ul>
 
-                    </div>
                 </section>
             {% endblock main %}
 
